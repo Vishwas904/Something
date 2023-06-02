@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        /* background-color: rgb(180, 218, 223); */
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .data {
+        padding-bottom: 15px;
+      }
+      h2 {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        font-size: 35px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-inline {
+        border: 1px solid #ccc;
+        padding: 8px 10px 4px;
+        border-radius: 2px;
+      }
+      .form-inline label,
+      .form-inline input {
+        display: inline-block;
+        width: auto;
+        padding-right: 15px;
+      }
+      input {
+        width: 150px;
+      }
+      .fpackopt {
+        display: block;
+      }
+      /* .check {
+        display: block;
+      } */
+      /* .tc {
+        display: block;
+      } */
+      input[type="radio" i] {
+        margin: 0 0;
+        width: 30px;
+      }
+      .coupon {
+        width: 160px;
+      }
+      .avaiL {
+        display: flex;
+        flex-direction: column;
+      }
+      .err {
+        color: red;
+        font-size: 90%;
+      }
+      .btn {
+        color: white;
+        background-color: rgb(48, 41, 41);
+        transition: 0.5s;
+      }
+      .btn:hover {
+        color: black;
+        background-color: white;
+      }
+      span {
+        color: rgb(104, 118, 118);
+      }
+    </style>
+    <script>
+                   function printError(elemId, hintMsg) {
+                     document.getElementById(elemId).innerHTML = hintMsg;
+                   }
+                   validateForm(){
+                     var fname = document.Travel.fname.value;
+                     var femail = document.Travel.femail.value;
+                     var fpack = document.Travel.fpack.value;
+                     var adate = document.Travel.fpack.value;
+                     var nop = document.Travel.nop.value;
+                     var avaiL=[];
+                     var check = document.getElementsByName("av");
+                     for(var i=0;i<check.length;i++){
+                     if(check[i].checked){
+                         avaiL.push(check[i].value)
+                     }
+                   }
+                   //Error Defining
+                   var nameEr = mailEr = packEr = dateEr = tcEr = true;
+                   //Name Validation
+                   if(fname == "")
+                   {
+                     printError("nameEr","*Please Enter your name")
+                   }
+                   else
+                   {
+                     var v = /^[a-zA-Z\s]+$/;
+                     if(v.test(fname) === false)
+                     {
+                         printError("nameEr","*Enter a valid Name")
+                     }
+                     else{
+                         printError("nameEr","")
+                         nameEr = false;
+                     }
+                   }
+      //              //Mail Validation
+      //              if (femail == "")
+      //               {
+      //            printError("mailEr", "Please enter your email address");
+      //         } else {
+      //         var v = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      //         if (v.test(email) === false) {
+      //         printError("mailEr", "Please enter a valid email address");
+      //         } else {
+      //         printError("mailEr", "");
+      //         femailEr = false;
+      //         }
+      //         }
+      //         //Package Validation
+      //        if (fpack == "Select") {
+      //       printError("packEr", "Please select your Package");
+      //       } else {
+      //        printError("packEr", "");
+      //      packEr = false;
+      //      }
+      //      //T & C Validation
+      //   if (tc == "") {
+      //   printError("tcEr", "Please select agree T & Cs");
+      //   } else {
+      //   printError("tcEr", "");
+      //   genderErr = false;
+      //   }
+                }
+    </script>
+  </head>
+  <body>
+    <h2>Travel Reservation Form</h2>
+    <div class="container">
+      <form action="#" name="Travel" method="post" onsubmit="validateForm()">
+        <div class="data">
+          <label for="fname">Full Name : </label>
+          <input
+            type="text"
+            name="fname"
+            placeholder="Enter your Name"
+            required
+          />
+          <div class="err" id="nameEr"></div>
+        </div>
+        <div class="data">
+          <label for="femail">Email Address : </label>
+          <input
+            type="email"
+            name="femail"
+            placeholder="Enter your e-Mail"
+            required
+          />
+          <div class="err" id="mailEr"></div>
+        </div>
+        <div class="data">
+          <label for="fpack">Select tour Package : </label>
+          <select name="fpackopt">
+            <option value="select">Select</option>
+            <option value="goa">Goa</option>
+            <option value="manali">Manali</option>
+            <option value="jk">J & K</option>
+            <option value="ladakh">ladakh</option>
+            <option value="Asam">Asam</option>
+          </select>
+          <div class="err" id="packEr"></div>
+        </div>
+        <div class="data">
+          <label for="adate">Arrival Date : </label>
+          <input type="date" name="adate" required />
+          <div class="err" id="dateErr"></div>
+        </div>
+        <div class="data">
+          <label for="nop">Number of Person : </label>
+          <input type="number" name="nop" placeholder="Total Person" required />
+          <div class="err" id="noP"></div>
+        </div>
+        <div class="data">
+          <label for="avail">What do you want to avail ? </label>
+          <div class="avaiL">
+            <input type="checkbox" class="check" name="av" />Boarding
+            <input type="checkbox" class="check" name="av" />Food
+            <input type="checkbox" class="check" name="av" />Sight Seeing
+          </div>
+        </div>
+        <div class="data">
+          <label for="coupon"
+            >Discount Coupon Code <span>(optional)</span></label
+          >
+          <input
+            type="text"
+            name="coupon"
+            class="coupon"
+            placeholder="Enter Coupon Code Here"
+          />
+          <div class="err" id="cop"></div>
+        </div>
+        <div class="data">
+          <label for="tc">Terms & Conditions :</label>
+          <input type="radio" name="tc" class="tc" required />I Agree
+          <input type="radio" name="tc" class="tc" required />I Disgree
+          <div class="err" id="tcEr"></div>
+        </div>
+        <div class="data">
+          <input type="submit" class="btn" value="Complete Reservation" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

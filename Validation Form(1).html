@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>JS Form Validation</title>
+ <style>
+ body {
+ font-size: 16px;
+ background: #66e0cc;
+ font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+ }
+ h2 {
+ text-align: center;
+ }
+ form {
+ width: 300px;
+ background: #a1e8e2;
+ padding: 15px 40px 40px;
+ border: 1px solid #ccc;
+ margin: 50px auto 0;
+ border-radius: 5px;
+ }
+ label {
+ display: block;
+ margin-bottom: 5px
+ }
+ label i {
+ color: #999;
+ font-size: 80%;
+ }
+ input, select {
+ border: 1px solid #cccccc;
+ padding: 10px;
+ display: block;
+ width: 100%;
+ box-sizing: border-box;
+ border-radius: 2px;
+ }
+ .data {
+ padding-bottom: 10px;
+ }
+ .check-radio {
+ /* border: 1px solid #ccc; */
+display: flex;
+ flex-direction: column;
+ padding: 8px 10px 4px;
+ border-radius: 2px;
+ }
+ .check-radio label, .check-radio input {
+ display: inline-block;
+ width: auto;
+ padding-right: 15px;
+ }
+ .error {
+ color: red;
+ font-size: 90%;
+ }
+ input[type="submit"] {
+ font-size: 110%;
+ font-weight: 100;
+ background: #006dcc;
+ border-color: #016BC1;
+ box-shadow: 0 3px 0 #0165b6;
+ color: #fff;
+ margin-top: 10px;
+ cursor: pointer;
+ }
+ input[type="submit"]:hover {
+ background: #0165b6;
+ }
+ </style>
+ <script>
+ // Defining a function to display error message
+ function printError(elementId, Msg) {
+ document.getElementById(elementId).innerHTML = Msg;
+ }
+ // Defining a function to validate form
+ function validateForm() {
+ // Retrieving the values of form elements
+ var name = document.travelForm.name.value;
+ var email = document.travelForm.email.value;
+ var nop = document.travelForm.nop.value;
+ var pack = document.travelForm.pack.value;  
+ var tc = document.travelForm.tc.value;
+
+ // Defining error variables with a default value
+ var nnameErr = emailErr = numberErr = packErr = tcErr = true;
+ // Validate name
+ if (name == "")
+ {
+ printError("nameErr", "*Please enter your name");
+ }
+ else
+ {
+ var regex = /^[a-zA-Z\s]+$/;
+ if (regex.test(name) === false)
+ {
+ printError("nameErr", "*Please enter a valid name");
+ }
+ else
+ {
+ printError("nameErr", "");
+ nameErr = false;
+ }
+ }
+ // Validate email address
+ if (email == "") {
+ printError("emailErr", "*Please enter your email address");
+ } else {
+ // Regular expression for basic email validation
+ var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+ if (regex.test(email) === false) {
+ printError("emailErr", "*Please enter a valid email address");
+ } else {
+ printError("emailErr", "");
+ emailErr = false;
+ }
+ }
+ // Validate Number of Persons
+ if (nop == "") {
+ printError("nopErr", "*Please enter Number of People");
+ } else {
+ var regex = /^[1-9]\d{9}$/;
+ if (regex.test(mobile) === false) {
+ printError("nopErr", "Maximum 10 People are allowed");
+ } else {
+ printError("nopErr", "");
+ numberErr = false;
+ }
+ }
+ // Validate Package
+ if (pack == "Select") {
+ printError("packErr", "*Please select your Package");
+ } else {
+ printError("packErr", "");
+ packerr = false;
+ }
+ // Validate T & C
+ if (tc == "") {
+ printError("tcErr", "*Please Agree Terms and Conditions");
+ } else {
+ printError("tcErr", "");
+ tcErr = false;
+ }
+ //Stopping Submission with errors
+ if ((nameErr || emailErr || numberErr || packErr || tcErr) == true)
+ {
+ 
+ alert("Your form has been submitted")
+ }
+ else {
+    return false;
+ }
+}
+ </script>
+ </head>
+ <body>
+ <form name="travelForm" onsubmit="return validateForm()" action=""
+method="post">
+ <h2>Travel Reservation Form</h2>
+ 
+ <!-- Name and Name Error -->
+ <div class="data">
+ <label>Full Name</label>
+ <input type="text" name="name" placeholder="Enter Your Name">
+ <div class="error" id="nameErr"></div>
+ </div>
+
+
+ <div class="data">
+ <label>Email Address</label>
+ <input type="text" name="email" placeholder="Enter Your Email Address">
+ <div class="error" id="emailErr"></div>
+ </div>
+
+
+ <div class="data">
+ <label>Select Your Package</label>
+ <select name="pack">
+ <option>Select</option>
+ <option>Goa</option>
+ <option>Manali</option>
+ <option>Ladakh</option>
+ <option>J & K</option>
+ </select>
+ <div class="error" id="packErr"></div>
+ </div>
+
+ 
+ <div class="data">
+    <label for="adate">Arrival Date : </label>
+    <input type="date" name="adate" required />
+    <div class="error" id="dateErr"></div>
+  </div>
+
+
+ <div class="data">
+    <label>Number of Person : </label>
+    <input type="number" name="nop" maxlength="6" placeholder="Total Number of People">
+    <div class="error" id="nopErr"></div>
+    </div>
+ 
+
+    <div class="data">
+        <label>What do you want to avail? </label>
+        <div class="check-radio">
+        <label><input type="checkbox" name="avail" value="boarding">
+        Boarding</label>
+        <label><input type="checkbox" name="avail" value="food">
+        Food</label>
+        <label><input type="checkbox" name="avail" value="music">
+        Sight Visiting</label>
+        </div>
+        </div>
+
+
+        <div class="data">
+            <label>Discount Coupon Code <i>optional</i> </label>
+            <input type="text" name="coupon" maxlength="7" placeholder="Enter Coupon Code">
+            </div>
+
+ <div class="data">
+ <label>T & Cs</label>
+ <div class="check-radio">
+ <label><input type="radio" name="tc" value="agree"> I Agree</label>
+ <label><input type="radio" name="tc" value="disagree"> I Disagree</label>
+ </div>
+ <div class="error" id="tcErr"></div>
+
+
+ 
+ 
+ <div class="data">
+ <input type="submit" value="Confirm Registration">
+ </div>
+
+
+</form>
+ </body>
+</html> 
